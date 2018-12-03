@@ -18,9 +18,67 @@ namespace Example {
 
             //DeLua();
             //DePng();
-            Rollback();
-            DePngs();
-            DeLuas();
+            //Rollback();
+            //DePngs();
+            //DeLuas();
+            //DeLua();
+            DeIni();
+            EnIni();
+        }
+        static void EnIni()
+        {
+            var file = File.ReadAllBytes(@"2.ini");
+            var data = Copy(file, 0);
+            byte[] keys = {0x4A, 0x89, 0xF1, 0xF1,
+            0xFB, 0xB2, 0x46, 0x23,
+            0xC2, 0x1C, 7, 0x8E,
+            0xF6, 0xEC, 0xCD, 0xF9};
+
+            var newdata = XXTEA.Encrypt(data, keys);
+
+            File.WriteAllBytes("3.enc", newdata);
+
+            //newdata = CopyLua(newdata);
+
+            //var newdata2 = XXTEA.Decrypt(newdata, keys);
+
+
+            // File.WriteAllBytes("1.lua", newdata2);
+
+
+
+
+        }
+        static void DeIni()
+        {
+            var file = File.ReadAllBytes(@"C:\Users\liubo\Nox_share\App\LegionData");
+            var data = Copy(file, 0);
+            byte[] keys = {0x4A, 0x89, 0xF1, 0xF1,
+            0xFB, 0xB2, 0x46, 0x23,
+            0xC2, 0x1C, 7, 0x8E,
+            0xF6, 0xEC, 0xCD, 0xF9};
+
+            byte[] keys2 = {
+                0x24, 0x54, 0x26, 0x89,
+                0xA8, 0x1C, 0x9C, 0xA6,
+                0xD1, 0x50, 0x17, 0xB,
+                0x5B, 0x6C, 5, 0xF6
+            };
+
+            var newdata = XXTEA.Decrypt(data, keys);
+
+            File.WriteAllBytes("2.ini", newdata);
+
+            //newdata = CopyLua(newdata);
+
+            //var newdata2 = XXTEA.Decrypt(newdata, keys);
+
+
+            // File.WriteAllBytes("1.lua", newdata2);
+
+
+
+
         }
 
         static void DeLua()
